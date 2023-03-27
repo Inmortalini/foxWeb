@@ -1,7 +1,6 @@
 // importaciones
 
 import { registerImagen } from "./lazyloading";
-import { observer } from "./lazyloading";
 
 // Obtenemos el contenedor donde queremos insertar los elementos
 
@@ -26,10 +25,10 @@ const creadorImagenes = () => {
 };
 
 const mountNode = document.getElementById("imaganesContainer");
-const addImagen=()=>{
-  const newImage=creadorImagenes();
+const addImagen = () => {
+  const newImage = creadorImagenes();
   mountNode.appendChild(newImage);
-  registerImagen(newImage)
-}
+  registerImagen(newImage);
+};
 // Escuchar el evento "click" del botón y agregar nuevas imágenes
 addButton.addEventListener("click", addImagen);
