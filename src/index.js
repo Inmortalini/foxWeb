@@ -1,37 +1,35 @@
-/**
- * This file is just a silly example to show everything working in the browser.
- * When you're ready to start on your site, clear the file. Happy hacking!
- **/
+// importaciones
 
-console.log("Happy hacking :)");
+import { registerImagen } from "./lazyloading";
+import { observer } from "./lazyloading";
 
 // Obtenemos el contenedor donde queremos insertar los elementos
 
-const imaganesContainer = document.getElementById("imaganesContainer");
-const addButton=document.querySelector('button')
+const addButton = document.querySelector("button");
+// const imagenesObservadas = [];
 
-// Creamos 20 imágenes con números aleatorios en la URL
 const creadorImagenes = () => {
-  
-    // Creamos el elemento div
-    const div = document.createElement("div");
-    div.classList.add("p-4");
+  // Creamos el elemento div
+  const container = document.createElement("div");
+  container.classList.add("p-4");
 
-    // Creamos el elemento img y le asignamos los atributos correspondientes
-    const img = document.createElement("img");
-    img.classList.add("imagenInd", "mx-auto");
-    img.setAttribute(
-      "src",
-      `https://randomfox.ca/images/${Math.floor((Math.random()*120)+1)}.jpg`
-    );
-    img.setAttribute("alt", "");
+  // Creamos el elemento img y le asignamos los atributos correspondientes
+  const imagen = document.createElement("img");
+  imagen.classList.add("imagenInd", "mx-auto");
+  imagen.dataset.src = `https://randomfox.ca/images/${Math.floor(
+    Math.random() * 120 + 1
+  )}.jpg`;
 
-    // Añadimos la imagen al div
-    div.appendChild(img);
-
-    // Añadimos el nuevo elemento al contenedor
-    imaganesContainer.appendChild(div);
-  
+  // Añadimos la nueva imagen al div
+  container.append(imagen);
+  return container;
 };
-creadorImagenes();
-addButton.addEventListener('click',creadorImagenes)
+
+const mountNode = document.getElementById("imaganesContainer");
+const addImagen=()=>{
+  const newImage=creadorImagenes();
+  mountNode.appendChild(newImage);
+  registerImagen(newImage)
+}
+// Escuchar el evento "click" del botón y agregar nuevas imágenes
+addButton.addEventListener("click", addImagen);
